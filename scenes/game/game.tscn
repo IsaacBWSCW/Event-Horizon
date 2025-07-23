@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0nmbsuxmb22o"]
+
+[ext_resource type="Script" uid="uid://dg0wgeiwjwahq" path="res://scenes/game/game.gd" id="1_sul5r"]
+[ext_resource type="Texture2D" uid="uid://tf6cp5bhxsyp" path="res://scenes/game/ship.png" id="2_7h61r"]
+[ext_resource type="Script" uid="uid://byn0onnghjgl8" path="res://scenes/game/bodies.gd" id="3_0sr1o"]
+
+[sub_resource type="GDScript" id="GDScript_7h61r"]
+script/source = "extends RigidBody2D
+
+const THRUST_FORCE := 200.0
+const ROTATION_TORQUE := 30.0
+
+func _ready() -> void:
+	pass
+
+func _physics_process(delta: float) -> void:
+	if Input.is_action_pressed(\"ship_turn_left\"):
+		apply_torque_impulse(-ROTATION_TORQUE)
+	elif Input.is_action_pressed(\"ship_turn_right\"):
+		apply_torque_impulse(ROTATION_TORQUE)
+
+	if Input.is_action_pressed(\"ship_thrust\"):
+		var thrust_vector = Vector2.UP.rotated(rotation) * THRUST_FORCE * delta
+		apply_central_impulse(thrust_vector)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kelw5"]
+radius = 20.0
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_sul5r")
+
+[node name="PlayerShip" type="RigidBody2D" parent="."]
+position = Vector2(0, 512)
+script = SubResource("GDScript_7h61r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerShip"]
+shape = SubResource("CircleShape2D_kelw5")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerShip"]
+texture_filter = 1
+position = Vector2(0, -4)
+texture = ExtResource("2_7h61r")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerShip"]
+zoom = Vector2(0.5, 0.5)
+
+[node name="Bodies" type="Node2D" parent="."]
+script = ExtResource("3_0sr1o")
