@@ -131,19 +131,21 @@ float perlin_fbm(vec3 P, uint seed, uint octaves, float lacunarity, float gain) 
 }
 
 void fragment() {
-	if (distance(UV, vec2(0.5, 0.5)) > 0.5) {
+	vec2 uvPixel = floor(UV * 1000.0 + 0.5) / 1000.0;
+	
+	if (distance(uvPixel, vec2(0.5, 0.5)) > 0.5) {
 		COLOR = vec4(0.0);
 	} else {
 		float time = TIME / 10.0;
 
 		// Base turbulence
-		float turbulence_scale = 1000.0;
+		float turbulence_scale = 32.0;
 		float offset_scale = 10.0;
 		vec2 uv_offset = vec2(
-			perlin_fbm(vec3(UV * turbulence_scale, time), 1, 8, 2.0, 0.5),
-			perlin_fbm(vec3(UV * turbulence_scale, time), 2, 8, 2.0, 0.5)
+			perlin_fbm(vec3(uvPixel * turbulence_scale, time), 1, 8, 2.0, 0.5),
+			perlin_fbm(vec3(uvPixel * turbulence_scale, time), 2, 8, 2.0, 0.5)
 		);
-		vec2 uv = UV * turbulence_scale + (uv_offset * offset_scale);
+		vec2 uv = uvPixel * turbulence_scale + (uv_offset * offset_scale);
 		float n = perlin_fbm(vec3(uv, time), 0, 8, 2.0, 0.5);
 
 		// Multi-color gradient (sun body)
@@ -157,9 +159,10 @@ void fragment() {
 		} else {
 			color = mix(vec3(1.0, 1.0, 0.2), vec3(1.0, 1.0, 1.0), (n - 0.75) * 4.0);
 		}
+		color = floor(color * 4.0) / 4.0;
 
-		float sunspot_mask = smoothstep(0.2, 0.21, perlin_fbm(vec3(UV * 100.0, time / 4.0), 3, 4, 2.0, 0.65));
-		float sunspot_ring_mask = smoothstep(0.28, 0.29, perlin_fbm(vec3(UV * 100.0, time / 4.0), 3, 4, 2.0, 0.5));
+		float sunspot_mask = smoothstep(0.2, 0.21, perlin_fbm(vec3(uvPixel * 100.0, time / 4.0), 3, 4, 2.0, 0.65));
+		float sunspot_ring_mask = smoothstep(0.28, 0.29, perlin_fbm(vec3(uvPixel * 100.0, time / 4.0), 3, 4, 2.0, 0.5));
 		color = mix(mix(color, vec3(1.0, 0.5, 0.0), 0.65), color, sunspot_ring_mask);
 		color *= vec3(sunspot_mask);
 
@@ -177,15 +180,10 @@ size = Vector2(4, 4)
 radius = 1000.0
 
 [sub_resource type="Gradient" id="Gradient_sul5r"]
-interpolation_mode = 2
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_7h61r"]
 gradient = SubResource("Gradient_sul5r")
-width = 4096
-height = 4096
-fill = 1
-fill_from = Vector2(0.5, 0.5)
 metadata/_snap_enabled = true
 metadata/_snap_count = 2
 
@@ -229,7 +227,7 @@ visible = false
 shape = SubResource("CircleShape2D_sul5r")
 
 [node name="PointLight2D" type="PointLight2D" parent="Bodies/Sun"]
-position = Vector2(-52, -48)
+scale = Vector2(100, 100)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_7h61r")
 
