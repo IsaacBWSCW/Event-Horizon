@@ -14,6 +14,14 @@ config/name="Event Horizon"
 run/main_scene="uid://db0liqyxv2u3k"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
+[autoload]
+
+GlobalVariables="*res://global_variables.gd"
+
+[dotnet]
+
+project/assembly_name="Event Horizon"
+
 [input]
 
 ship_thrust={
@@ -44,3 +52,4 @@ ship_turn_right={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+2d/shadow_atlas/size=16384
