@@ -130,13 +130,19 @@ float perlin_fbm(vec3 P, uint seed, uint octaves, float lacunarity, float gain) 
 	return total / maxAmplitude;
 }
 
+float distanceSquared(vec2 a, vec2 b) {
+	vec2 d = a - b;
+	return dot(d,d);
+}
+
 void fragment() {
 	vec2 uvPixel = floor(UV * 1000.0 + 0.5) / 1000.0;
-	
-	if (distance(uvPixel, vec2(0.5, 0.5)) > 0.5) {
+
+	if (distanceSquared(uvPixel, vec2(0.5, 0.5)) > 0.25) {
 		COLOR = vec4(0.0);
 	} else {
-		float time = TIME / 10.0;
+		float time = floor(TIME * 12.0) / 12.0 / 50.0;
+		//float time = TIME / 50.0;
 
 		// Base turbulence
 		float turbulence_scale = 32.0;
