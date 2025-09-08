@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://d0nmbsuxmb22o"]
+[gd_scene load_steps=14 format=3 uid="uid://d0nmbsuxmb22o"]
 
-[ext_resource type="Texture2D" uid="uid://tf6cp5bhxsyp" path="res://assets/ship.png" id="2_7h61r"]
+[ext_resource type="Texture2D" uid="uid://dggswya4p033b" path="res://assets/ships/ship1/ship1_Nthrust.png" id="1_sul5r"]
+[ext_resource type="Texture2D" uid="uid://celtseumntrnf" path="res://assets/planets/lava/lava1.png" id="2_7h61r"]
 
 [sub_resource type="GDScript" id="GDScript_sul5r"]
 script/source = "extends RigidBody2D
@@ -8,11 +9,11 @@ script/source = "extends RigidBody2D
 func _physics_process(delta: float) -> void:
 	angular_velocity = 0
 	if Input.is_action_pressed(\"ship_turn_left\"):
-		rotation += -1 * delta * TAU
+		rotation += -0.25 * delta * TAU
 	if Input.is_action_pressed(\"ship_turn_right\"):
-		rotation += 1 * delta * TAU
+		rotation += 0.25 * delta * TAU
 	if Input.is_action_pressed(\"ship_thrust\"):
-		linear_velocity += Vector2.from_angle(rotation - PI/2) * 50 * delta
+		linear_velocity += Vector2.from_angle(rotation - PI/2) * 25 * delta
 
 #func _draw() -> void:
 	#var points = []
@@ -37,13 +38,14 @@ func _physics_process(delta: float) -> void:
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ifgtf"]
+radius = 2.0
 
 [sub_resource type="GDScript" id="GDScript_0sr1o"]
 script/source = "extends Camera2D
 
 var zoom_step := 0.1
-var min_zoom := 0.25
-var max_zoom := 5.0
+var min_zoom := 0.0625
+var max_zoom := 20.0
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
@@ -136,9 +138,9 @@ float distanceSquared(vec2 a, vec2 b) {
 }
 
 void fragment() {
-	vec2 uvPixel = floor(UV * 1000.0 + 0.5) / 1000.0;
+	vec2 uvPixel = floor(UV * 2000.0 + 0.5) / 2000.0;
 
-	if (distanceSquared(uvPixel, vec2(0.5, 0.5)) > 0.25) {
+	if (distanceSquared(uvPixel, vec2(0.5, 0.5)) >= 0.25) {
 		COLOR = vec4(0.0);
 	} else {
 		float time = floor(TIME * 12.0) / 12.0 / 50.0;
@@ -183,7 +185,7 @@ shader = SubResource("Shader_sul5r")
 size = Vector2(4, 4)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sul5r"]
-radius = 1000.0
+radius = 2000.0
 
 [sub_resource type="Gradient" id="Gradient_sul5r"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -194,17 +196,19 @@ metadata/_snap_enabled = true
 metadata/_snap_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7h61r"]
+radius = 32.0
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_sul5r"]
-polygon = PackedVector2Array(-9, -3, 6, -8, 6, 8, -1.74672, 2.31907)
+closed = false
+polygon = PackedVector2Array(23, 30, 23, -36)
 
 [node name="Game" type="Node2D"]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0, 0, 0, 1)
+color = Color(0.099986, 0.099986, 0.099986, 1)
 
 [node name="PlayerShip" type="RigidBody2D" parent="."]
-position = Vector2(1152, 0)
+position = Vector2(2500, 0)
 script = SubResource("GDScript_sul5r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerShip"]
@@ -212,11 +216,13 @@ shape = SubResource("CircleShape2D_ifgtf")
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayerShip"]
 texture_filter = 1
-position = Vector2(0, -2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_7h61r")
+position = Vector2(0, -0.1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_sul5r")
 
 [node name="Camera2D" type="Camera2D" parent="PlayerShip"]
+ignore_rotation = false
+rotation_smoothing_enabled = true
 script = SubResource("GDScript_0sr1o")
 
 [node name="Bodies" type="Node2D" parent="."]
@@ -225,11 +231,10 @@ script = SubResource("GDScript_0sr1o")
 
 [node name="Sprite2D" type="Sprite2D" parent="Bodies/Sun"]
 material = SubResource("ShaderMaterial_7h61r")
-scale = Vector2(500, 500)
+scale = Vector2(1000, 1000)
 texture = SubResource("PlaceholderTexture2D_bdhmt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bodies/Sun"]
-visible = false
 shape = SubResource("CircleShape2D_sul5r")
 
 [node name="PointLight2D" type="PointLight2D" parent="Bodies/Sun"]
@@ -237,11 +242,16 @@ scale = Vector2(100, 100)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_7h61r")
 
-[node name="ShadowTest" type="AnimatableBody2D" parent="Bodies"]
-position = Vector2(1081, 0)
+[node name="PlanetTest" type="AnimatableBody2D" parent="Bodies"]
+position = Vector2(2429, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bodies/ShadowTest"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bodies/PlanetTest"]
 shape = SubResource("CircleShape2D_7h61r")
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Bodies/ShadowTest"]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Bodies/PlanetTest"]
+position = Vector2(-23, 3)
 occluder = SubResource("OccluderPolygon2D_sul5r")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bodies/PlanetTest"]
+texture_filter = 1
+texture = ExtResource("2_7h61r")
