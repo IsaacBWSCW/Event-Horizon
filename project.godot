@@ -53,3 +53,4 @@ ship_turn_right={
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 2d/shadow_atlas/size=16384
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

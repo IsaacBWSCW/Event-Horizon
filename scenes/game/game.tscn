@@ -57,6 +57,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		zoom.y = clamp(zoom.y, min_zoom, max_zoom)
 "
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_sul5r"]
+radius = 2000.0
+
 [sub_resource type="Shader" id="Shader_sul5r"]
 code = "shader_type canvas_item;
 
@@ -184,9 +187,6 @@ shader = SubResource("Shader_sul5r")
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bdhmt"]
 size = Vector2(4, 4)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_sul5r"]
-radius = 2000.0
-
 [sub_resource type="Gradient" id="Gradient_sul5r"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
@@ -229,13 +229,13 @@ script = SubResource("GDScript_0sr1o")
 
 [node name="Sun" type="AnimatableBody2D" parent="Bodies"]
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bodies/Sun"]
+shape = SubResource("CircleShape2D_sul5r")
+
 [node name="Sprite2D" type="Sprite2D" parent="Bodies/Sun"]
 material = SubResource("ShaderMaterial_7h61r")
 scale = Vector2(1000, 1000)
 texture = SubResource("PlaceholderTexture2D_bdhmt")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bodies/Sun"]
-shape = SubResource("CircleShape2D_sul5r")
 
 [node name="PointLight2D" type="PointLight2D" parent="Bodies/Sun"]
 scale = Vector2(100, 100)
@@ -248,10 +248,10 @@ position = Vector2(2429, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bodies/PlanetTest"]
 shape = SubResource("CircleShape2D_7h61r")
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Bodies/PlanetTest"]
-position = Vector2(-23, 3)
-occluder = SubResource("OccluderPolygon2D_sul5r")
-
 [node name="Sprite2D" type="Sprite2D" parent="Bodies/PlanetTest"]
 texture_filter = 1
 texture = ExtResource("2_7h61r")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Bodies/PlanetTest"]
+position = Vector2(-23, 3)
+occluder = SubResource("OccluderPolygon2D_sul5r")
