@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://d0nmbsuxmb22o"]
+[gd_scene load_steps=9 format=3 uid="uid://d0nmbsuxmb22o"]
 
-[ext_resource type="Texture2D" uid="uid://dggswya4p033b" path="res://assets/ships/ship1/ship1_Nthrust.png" id="1_sul5r"]
-[ext_resource type="Texture2D" uid="uid://celtseumntrnf" path="res://assets/planets/lava/lava1.png" id="2_7h61r"]
+[ext_resource type="Texture2D" path="res://assets/ships/ship1/ship1_Nthrust.png" id="1_sul5r"]
 
 [sub_resource type="GDScript" id="GDScript_sul5r"]
 script/source = "extends RigidBody2D
@@ -57,8 +56,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		zoom.y = clamp(zoom.y, min_zoom, max_zoom)
 "
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_sul5r"]
-radius = 2000.0
+[sub_resource type="GDScript" id="GDScript_7h61r"]
+script/source = "extends Node2D
+
+func _ready() -> void:
+	pass
+"
 
 [sub_resource type="Shader" id="Shader_sul5r"]
 code = "shader_type canvas_item;
@@ -187,25 +190,7 @@ shader = SubResource("Shader_sul5r")
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bdhmt"]
 size = Vector2(4, 4)
 
-[sub_resource type="Gradient" id="Gradient_sul5r"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_7h61r"]
-gradient = SubResource("Gradient_sul5r")
-metadata/_snap_enabled = true
-metadata/_snap_count = 2
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_7h61r"]
-radius = 32.0
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_sul5r"]
-closed = false
-polygon = PackedVector2Array(23, 30, 23, -36)
-
 [node name="Game" type="Node2D"]
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.099986, 0.099986, 0.099986, 1)
 
 [node name="PlayerShip" type="RigidBody2D" parent="."]
 position = Vector2(2500, 0)
@@ -226,32 +211,11 @@ rotation_smoothing_enabled = true
 script = SubResource("GDScript_0sr1o")
 
 [node name="Bodies" type="Node2D" parent="."]
+script = SubResource("GDScript_7h61r")
 
-[node name="Sun" type="AnimatableBody2D" parent="Bodies"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bodies/Sun"]
-shape = SubResource("CircleShape2D_sul5r")
+[node name="Sun" type="Node2D" parent="Bodies"]
 
 [node name="Sprite2D" type="Sprite2D" parent="Bodies/Sun"]
 material = SubResource("ShaderMaterial_7h61r")
 scale = Vector2(1000, 1000)
 texture = SubResource("PlaceholderTexture2D_bdhmt")
-
-[node name="PointLight2D" type="PointLight2D" parent="Bodies/Sun"]
-scale = Vector2(100, 100)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_7h61r")
-
-[node name="PlanetTest" type="AnimatableBody2D" parent="Bodies"]
-position = Vector2(2429, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bodies/PlanetTest"]
-shape = SubResource("CircleShape2D_7h61r")
-
-[node name="Sprite2D" type="Sprite2D" parent="Bodies/PlanetTest"]
-texture_filter = 1
-texture = ExtResource("2_7h61r")
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Bodies/PlanetTest"]
-position = Vector2(-23, 3)
-occluder = SubResource("OccluderPolygon2D_sul5r")
