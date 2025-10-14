@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://d0nmbsuxmb22o"]
 
-[ext_resource type="Texture2D" path="res://assets/ships/ship1/ship1_Nthrust.png" id="1_sul5r"]
+[ext_resource type="Texture2D" uid="uid://csnltnn0tmjn8" path="res://assets/ships/ship2(Modified Bersicl Party Schooner)/ship1_RED.png" id="1_sul5r"]
 
 [sub_resource type="GDScript" id="GDScript_sul5r"]
 script/source = "extends RigidBody2D
