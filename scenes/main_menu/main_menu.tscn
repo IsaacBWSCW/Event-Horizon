@@ -1,34 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://db0liqyxv2u3k"]
 
-<<<<<<< Updated upstream
 [ext_resource type="Texture2D" uid="uid://bs0rirj6wrt5d" path="res://assets/UI & UX/image.png" id="1_0ebjn"]
 [ext_resource type="Script" uid="uid://1oto2shjeiot" path="res://scenes/main_menu/main_menu.gd" id="1_uqeha"]
 [ext_resource type="Texture2D" uid="uid://d15vs1ccsqt1y" path="res://assets/UI & UX/Button boxes.png" id="2_wem23"]
 [ext_resource type="FontFile" uid="uid://n0c05762ehrk" path="res://assets/UI & UX/text/Bitmgothic/Bitmgothic.ttf" id="3_3ovsr"]
-=======
-[ext_resource type="Texture2D" uid="uid://br4re45kjfwh6" path="res://assets/UI & UX/logo frames(Draft)/frame0000.png" id="1_i7nm7"]
-[ext_resource type="Texture2D" uid="uid://dkgrvhbexeakx" path="res://assets/UI & UX/logo frames(Draft)/frame0001.png" id="2_tfctf"]
-[ext_resource type="Texture2D" uid="uid://b1xa41vxxhvt0" path="res://assets/UI & UX/logo frames(Draft)/frame0002.png" id="3_n7xlh"]
-[ext_resource type="Texture2D" uid="uid://5lqanqd5xbn6" path="res://assets/UI & UX/logo frames(Draft)/frame0003.png" id="4_0xlsr"]
-[ext_resource type="Texture2D" uid="uid://b0n6pnxgjv1jw" path="res://assets/UI & UX/logo frames(Draft)/frame0004.png" id="5_0oicw"]
-[ext_resource type="Texture2D" uid="uid://dohkir7t0lpue" path="res://assets/UI & UX/logo frames(Draft)/frame0005.png" id="6_83tid"]
-[ext_resource type="Texture2D" uid="uid://nk7fq21tkpys" path="res://assets/UI & UX/logo frames(Draft)/frame0006.png" id="7_t0qut"]
-[ext_resource type="Texture2D" uid="uid://d2cbx7er38rih" path="res://assets/UI & UX/logo frames(Draft)/frame0007.png" id="8_g8sw0"]
-[ext_resource type="Texture2D" uid="uid://e4bon0v6o7e7" path="res://assets/UI & UX/logo frames(Draft)/frame0008.png" id="9_jnwll"]
-[ext_resource type="Texture2D" uid="uid://3l7n7a3o5mf1" path="res://assets/UI & UX/logo frames(Draft)/frame0009.png" id="10_chxta"]
-[ext_resource type="Texture2D" uid="uid://bnotajg1mk6jt" path="res://assets/UI & UX/logo frames(Draft)/frame0010.png" id="11_unaco"]
-[ext_resource type="Texture2D" uid="uid://3uyt0126b1m8" path="res://assets/UI & UX/logo frames(Draft)/frame0011.png" id="12_81nce"]
-[ext_resource type="Texture2D" uid="uid://c45a0nrpy1w55" path="res://assets/UI & UX/logo frames(Draft)/frame0012.png" id="13_hj072"]
-[ext_resource type="Texture2D" uid="uid://ctkovlv2xv46m" path="res://assets/UI & UX/logo frames(Draft)/frame0013.png" id="14_x5yu2"]
-[ext_resource type="Texture2D" uid="uid://crmqkhgermdfc" path="res://assets/UI & UX/logo frames(Draft)/frame0014.png" id="15_ptsf3"]
-[ext_resource type="Texture2D" uid="uid://cvp4euajye4i2" path="res://assets/UI & UX/logo frames(Draft)/frame0015.png" id="16_aht68"]
-[ext_resource type="Texture2D" uid="uid://54c7tkqkh7ms" path="res://assets/UI & UX/logo frames(Draft)/frame0016.png" id="17_boqas"]
-[ext_resource type="Texture2D" uid="uid://bh655u4pgeoxq" path="res://assets/UI & UX/logo frames(Draft)/frame0017.png" id="18_si1as"]
-[ext_resource type="Texture2D" uid="uid://dw3f6bd6810kk" path="res://assets/UI & UX/logo frames(Draft)/frame0018.png" id="19_n4ny7"]
-[ext_resource type="Texture2D" uid="uid://cmyxhsu1k0vbd" path="res://assets/UI & UX/logo frames(Draft)/frame0019.png" id="20_3vb4h"]
-[ext_resource type="Texture2D" uid="uid://oq4icbbsoysb" path="res://assets/UI & UX/logo frames(Draft)/frame0020.png" id="21_h10i5"]
-[ext_resource type="Script" uid="uid://d3aej8ngd24dj" path="res://scenes/main_menu/animated_sprite_2d.gd" id="22_tfctf"]
->>>>>>> Stashed changes
 
 [sub_resource type="GDScript" id="GDScript_1b6gl"]
 script/source = "extends Button
