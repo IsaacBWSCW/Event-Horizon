@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://db0liqyxv2u3k"]
+[gd_scene load_steps=9 format=3 uid="uid://db0liqyxv2u3k"]
 
-[ext_resource type="Texture2D" uid="uid://dnroqk0s6il7u" path="res://assets/UI & UX/image.png" id="1_0ebjn"]
-[ext_resource type="Script" uid="uid://d3aej8ngd24dj" path="res://scenes/main_menu/animated_sprite_2d.gd" id="22_tfctf"]
+[ext_resource type="Texture2D" uid="uid://bs0rirj6wrt5d" path="res://assets/UI & UX/image.png" id="1_0ebjn"]
+[ext_resource type="Script" uid="uid://1oto2shjeiot" path="res://scenes/main_menu/main_menu.gd" id="1_uqeha"]
+[ext_resource type="Texture2D" uid="uid://d15vs1ccsqt1y" path="res://assets/UI & UX/Button boxes.png" id="2_wem23"]
+[ext_resource type="FontFile" uid="uid://n0c05762ehrk" path="res://assets/UI & UX/text/Bitmgothic/Bitmgothic.ttf" id="3_3ovsr"]
 
 [sub_resource type="GDScript" id="GDScript_1b6gl"]
 script/source = "extends Button
@@ -10,6 +12,91 @@ func _pressed() -> void:
 	get_tree().change_scene_to_file(\"res://scenes/game/game.tscn\")
 "
 
+[sub_resource type="Animation" id="Animation_4xg86"]
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_5seab"]
+resource_name = "fade"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_thkx5"]
+_data = {
+&"RESET": SubResource("Animation_4xg86"),
+&"fade": SubResource("Animation_5seab")
+}
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -17,35 +104,91 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_uqeha")
 
-[node name="StartGameButton" type="Button" parent="."]
-layout_mode = 1
+[node name="Node2D" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+
+[node name="StartGameButton" type="Button" parent="Node2D"]
 anchors_preset = -1
 anchor_left = 0.75
 anchor_top = 0.5
 anchor_right = 0.75
 anchor_bottom = 0.5
-offset_left = -98.0
-offset_top = -32.0
-offset_right = 98.0
-offset_bottom = 32.0
+offset_left = 766.0
+offset_top = 292.0
+offset_right = 962.0
+offset_bottom = 356.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Start Game"
 script = SubResource("GDScript_1b6gl")
 
-[node name="Logo" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="Node2D/StartGameButton"]
 layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_wem23")
+
+[node name="Label" type="Label" parent="Node2D/StartGameButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(6.1366705e-07, 0, 0.35297337, 1)
+theme_override_fonts/font = ExtResource("3_3ovsr")
+theme_override_font_sizes/font_size = 47
+text = "Start Game"
+
+[node name="Logo" type="TextureRect" parent="Node2D"]
 anchors_preset = -1
 anchor_left = 0.25
 anchor_top = 0.5
 anchor_right = 0.25
 anchor_bottom = 0.5
-offset_left = -249.0
-offset_top = -81.0
-offset_right = 252.0
-offset_bottom = 84.0
+offset_left = 39.0
+offset_top = 243.0
+offset_right = 540.0
+offset_bottom = 408.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_0ebjn")
-script = ExtResource("22_tfctf")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -584.0
+offset_top = -332.0
+offset_right = 584.0
+offset_bottom = 332.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_thkx5")
+}
