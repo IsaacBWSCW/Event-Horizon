@@ -12,4 +12,4 @@ public:
     void say_hello() const {
         UtilityFunctions::print("Hello from C++");
     }
-}
+};
