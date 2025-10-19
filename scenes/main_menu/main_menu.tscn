@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://db0liqyxv2u3k"]
+[gd_scene load_steps=10 format=3 uid="uid://db0liqyxv2u3k"]
 
-[ext_resource type="Texture2D" uid="uid://bs0rirj6wrt5d" path="res://assets/UI & UX/image.png" id="1_0ebjn"]
 [ext_resource type="Script" uid="uid://1oto2shjeiot" path="res://scenes/main_menu/main_menu.gd" id="1_uqeha"]
 [ext_resource type="Texture2D" uid="uid://d15vs1ccsqt1y" path="res://assets/UI & UX/Button boxes.png" id="2_wem23"]
-[ext_resource type="FontFile" uid="uid://n0c05762ehrk" path="res://assets/UI & UX/text/Bitmgothic/Bitmgothic.ttf" id="3_3ovsr"]
+[ext_resource type="FontFile" uid="uid://c4x32k77ycecx" path="res://assets/UI & UX/text/Xirod.otf" id="3_ob46e"]
 
 [sub_resource type="GDScript" id="GDScript_1b6gl"]
 script/source = "extends Button
@@ -11,6 +10,16 @@ script/source = "extends Button
 func _pressed() -> void:
 	get_tree().change_scene_to_file(\"res://scenes/game/game.tscn\")
 "
+
+[sub_resource type="Gradient" id="Gradient_uqeha"]
+offsets = PackedFloat32Array(0.09090909, 0.29545453, 0.5681818, 0.94545454)
+colors = PackedColorArray(0.9098039, 0.5803922, 0.72156864, 1, 0.78963584, 0.2854342, 0.9801121, 1, 0.78039217, 0.2627451, 1, 1, 0.19562662, 1.6364454e-05, 0.93755907, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wem23"]
+gradient = SubResource("Gradient_uqeha")
+use_hdr = true
+fill_from = Vector2(0, 0.86752135)
+fill_to = Vector2(0, 0)
 
 [sub_resource type="Animation" id="Animation_4xg86"]
 length = 3.0
@@ -98,6 +107,8 @@ _data = {
 }
 
 [node name="MainMenu" type="Control"]
+modulate = Color(0.8980392, 1, 1, 1)
+clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -109,22 +120,91 @@ script = ExtResource("1_uqeha")
 [node name="Node2D" type="Node2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 
+[node name="CreditsButton" type="Button" parent="Node2D"]
+anchors_preset = -1
+anchor_left = 0.75
+anchor_top = 0.5
+anchor_right = 0.75
+anchor_bottom = 0.5
+offset_left = 480.0
+offset_top = 392.0
+offset_right = 676.0
+offset_bottom = 456.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+script = SubResource("GDScript_1b6gl")
+
+[node name="TextureRect" type="TextureRect" parent="Node2D/CreditsButton"]
+modulate = Color(0.8980392, 1, 1, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_wem23")
+
+[node name="Label" type="Label" parent="Node2D/CreditsButton"]
+clip_children = 2
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(6.1366705e-07, 0, 0.35297337, 1)
+theme_override_fonts/font = ExtResource("3_ob46e")
+theme_override_font_sizes/font_size = 47
+text = "Credits"
+
+[node name="TextureRect" type="TextureRect" parent="Node2D/CreditsButton/Label"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -25.0
+offset_right = 250.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_wem23")
+expand_mode = 1
+
 [node name="StartGameButton" type="Button" parent="Node2D"]
 anchors_preset = -1
 anchor_left = 0.75
 anchor_top = 0.5
 anchor_right = 0.75
 anchor_bottom = 0.5
-offset_left = 766.0
-offset_top = 292.0
-offset_right = 962.0
-offset_bottom = 356.0
+offset_left = 480.0
+offset_top = 272.0
+offset_right = 676.0
+offset_bottom = 336.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Start Game"
+flat = true
 script = SubResource("GDScript_1b6gl")
 
 [node name="TextureRect" type="TextureRect" parent="Node2D/StartGameButton"]
+modulate = Color(0.8980392, 1, 1, 1)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -140,6 +220,8 @@ grow_vertical = 2
 texture = ExtResource("2_wem23")
 
 [node name="Label" type="Label" parent="Node2D/StartGameButton"]
+clip_children = 2
+use_parent_material = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -154,23 +236,63 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(6.1366705e-07, 0, 0.35297337, 1)
-theme_override_fonts/font = ExtResource("3_3ovsr")
+theme_override_fonts/font = ExtResource("3_ob46e")
 theme_override_font_sizes/font_size = 47
 text = "Start Game"
 
-[node name="Logo" type="TextureRect" parent="Node2D"]
-anchors_preset = -1
-anchor_left = 0.25
+[node name="TextureRect" type="TextureRect" parent="Node2D/StartGameButton/Label"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 0.25
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 39.0
-offset_top = 243.0
-offset_right = 540.0
-offset_bottom = 408.0
+offset_left = -250.0
+offset_top = -25.0
+offset_right = 250.0
+offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_0ebjn")
+texture = SubResource("GradientTexture2D_wem23")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Node2D"]
+clip_children = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 368.0
+offset_top = 64.0
+offset_right = 786.0
+offset_bottom = 223.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_ob46e")
+theme_override_font_sizes/font_size = 64
+text = "EVENT
+HORIZON"
+horizontal_alignment = 1
+vertical_alignment = 1
+paragraph_separator = "0"
+
+[node name="TextureRect" type="TextureRect" parent="Node2D/Label"]
+custom_minimum_size = Vector2(420, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_wem23")
+expand_mode = 1
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
