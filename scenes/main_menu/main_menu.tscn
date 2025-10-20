@@ -1,15 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://db0liqyxv2u3k"]
+[gd_scene load_steps=11 format=3 uid="uid://db0liqyxv2u3k"]
 
 [ext_resource type="Script" uid="uid://1oto2shjeiot" path="res://scenes/main_menu/main_menu.gd" id="1_uqeha"]
+[ext_resource type="Script" uid="uid://cs0hh2frah7p2" path="res://scenes/main_menu/credits_button.gd" id="2_uqeha"]
 [ext_resource type="Texture2D" uid="uid://d15vs1ccsqt1y" path="res://assets/UI & UX/Button boxes.png" id="2_wem23"]
 [ext_resource type="FontFile" uid="uid://c4x32k77ycecx" path="res://assets/UI & UX/text/Xirod.otf" id="3_ob46e"]
-
-[sub_resource type="GDScript" id="GDScript_1b6gl"]
-script/source = "extends Button
-
-func _pressed() -> void:
-	get_tree().change_scene_to_file(\"res://scenes/game/game.tscn\")
-"
 
 [sub_resource type="Gradient" id="Gradient_uqeha"]
 offsets = PackedFloat32Array(0.09090909, 0.29545453, 0.5681818, 0.94545454)
@@ -20,6 +14,13 @@ gradient = SubResource("Gradient_uqeha")
 use_hdr = true
 fill_from = Vector2(0, 0.86752135)
 fill_to = Vector2(0, 0)
+
+[sub_resource type="GDScript" id="GDScript_1b6gl"]
+script/source = "extends Button
+
+func _pressed() -> void:
+	get_tree().change_scene_to_file(\"res://scenes/game/game.tscn\")
+"
 
 [sub_resource type="Animation" id="Animation_4xg86"]
 length = 3.0
@@ -133,7 +134,7 @@ offset_bottom = 456.0
 grow_horizontal = 2
 grow_vertical = 2
 flat = true
-script = SubResource("GDScript_1b6gl")
+script = ExtResource("2_uqeha")
 
 [node name="TextureRect" type="TextureRect" parent="Node2D/CreditsButton"]
 modulate = Color(0.8980392, 1, 1, 1)

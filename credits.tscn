@@ -1,3 +1,18 @@
-[gd_scene format=3 uid="uid://qbmwkj5632yl"]
+[gd_scene load_steps=2 format=3 uid="uid://qbmwkj5632yl"]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource type="Script" uid="uid://dsyv0ium211cn" path="res://credits.gd" id="1_nm7lk"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_nm7lk")
+
+[node name="CreditsContainer" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 1154.0
+offset_bottom = 654.0
+
+[node name="Line" type="Label" parent="CreditsContainer"]
+layout_mode = 0
+offset_right = 1154.0
+offset_bottom = 653.0
