@@ -39,7 +39,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D:modulate")
+tracks/1/path = NodePath("Control:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -79,7 +79,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D:modulate")
+tracks/1/path = NodePath("Control:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -118,10 +118,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_uqeha")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Control" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0)
+anchors_preset = 0
 
-[node name="CreditsButton" type="Button" parent="Node2D"]
+[node name="CreditsButton" type="Button" parent="Control"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.75
 anchor_top = 0.5
@@ -136,7 +138,7 @@ grow_vertical = 2
 flat = true
 script = ExtResource("2_uqeha")
 
-[node name="TextureRect" type="TextureRect" parent="Node2D/CreditsButton"]
+[node name="TextureRect" type="TextureRect" parent="Control/CreditsButton"]
 modulate = Color(0.8980392, 1, 1, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -152,7 +154,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_wem23")
 
-[node name="Label" type="Label" parent="Node2D/CreditsButton"]
+[node name="Label" type="Label" parent="Control/CreditsButton"]
 clip_children = 2
 use_parent_material = true
 layout_mode = 1
@@ -173,7 +175,7 @@ theme_override_fonts/font = ExtResource("3_ob46e")
 theme_override_font_sizes/font_size = 47
 text = "Credits"
 
-[node name="TextureRect" type="TextureRect" parent="Node2D/CreditsButton/Label"]
+[node name="TextureRect" type="TextureRect" parent="Control/CreditsButton/Label"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -189,7 +191,8 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_wem23")
 expand_mode = 1
 
-[node name="StartGameButton" type="Button" parent="Node2D"]
+[node name="StartGameButton" type="Button" parent="Control"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.75
 anchor_top = 0.5
@@ -204,7 +207,7 @@ grow_vertical = 2
 flat = true
 script = SubResource("GDScript_1b6gl")
 
-[node name="TextureRect" type="TextureRect" parent="Node2D/StartGameButton"]
+[node name="TextureRect" type="TextureRect" parent="Control/StartGameButton"]
 modulate = Color(0.8980392, 1, 1, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -220,7 +223,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_wem23")
 
-[node name="Label" type="Label" parent="Node2D/StartGameButton"]
+[node name="Label" type="Label" parent="Control/StartGameButton"]
 clip_children = 2
 use_parent_material = true
 layout_mode = 1
@@ -241,7 +244,7 @@ theme_override_fonts/font = ExtResource("3_ob46e")
 theme_override_font_sizes/font_size = 47
 text = "Start Game"
 
-[node name="TextureRect" type="TextureRect" parent="Node2D/StartGameButton/Label"]
+[node name="TextureRect" type="TextureRect" parent="Control/StartGameButton/Label"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -257,8 +260,9 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_wem23")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="Node2D"]
+[node name="Label" type="Label" parent="Control"]
 clip_children = 2
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -278,7 +282,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 paragraph_separator = "0"
 
-[node name="TextureRect" type="TextureRect" parent="Node2D/Label"]
+[node name="TextureRect" type="TextureRect" parent="Control/Label"]
 custom_minimum_size = Vector2(420, 150)
 layout_mode = 1
 anchors_preset = 8
