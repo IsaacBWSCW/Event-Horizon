@@ -8,8 +8,14 @@ add_subdirectory(godot-cpp godot-cpp/build)
 
 add_library(native SHARED
         src/register.cpp
-        src/Engine.cpp
-        src/Engine.hpp
+        src/EventHorizonGame.cpp
+        src/EventHorizonGame.hpp
+        src/Event.cpp
+        src/Event.hpp
+        src/Object.cpp
+        src/Object.hpp
+        src/GravitationalObject.cpp
+        src/GravitationalObject.hpp
 )
 
 target_include_directories(native PRIVATE
@@ -21,49 +27,21 @@ target_link_libraries(native PRIVATE godot-cpp)
 
 if(WIN32)
     set(PLATFORM_ID "windows")
-elseif(APPLE)
-    set(PLATFORM_ID "macos")
 elseif(UNIX)
     set(PLATFORM_ID "linux")
 else()
     set(PLATFORM_ID "unknown")
 endif()
 
-# Ensure 'lib' prefix is present on all platforms (matches your filenames)
 set_target_properties(native PROPERTIES PREFIX "lib")
 
-# Handle multi-config generators (Visual Studio, Xcode) with generator expressions.
-# For single-config (Ninja, Make) use CMAKE_BUILD_TYPE at configure time.
-if(CMAKE_CONFIGURATION_TYPES) # multi-config
-    # OUTPUT_NAME does not include extension. CMake will append the platform-specific extension.
-    set_target_properties(native PROPERTIES
-            OUTPUT_NAME
-            "$<IF:$<CONFIG:Debug>,Native.${PLATFORM_ID}.debug.x86_64,Native.${PLATFORM_ID}.release.x86_64>"
-    )
-else() # single-config
-    if(NOT CMAKE_BUILD_TYPE)
-        set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type" FORCE)
-    endif()
-    string(TOLOWER "${CMAKE_BUILD_TYPE}" _bt)
-    if(_bt STREQUAL "debug")
-        set(_cfg "debug")
-    else()
-        set(_cfg "release")
-    endif()
-    set_target_properties(native PROPERTIES
-            OUTPUT_NAME "Native.${PLATFORM_ID}.${_cfg}.x86_64"
-    )
-endif()
-
-# Place built artifacts inside build/bin for convenience
 set_target_properties(native PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
-        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
-        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+        OUTPUT_NAME
+        "${CMAKE_PROJECT_NAME}.${PLATFORM_ID}.x86_64"
 )
 
 install(TARGETS native
-        LIBRARY DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/bin"
-        RUNTIME DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/bin"
-        ARCHIVE DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/bin"
+        LIBRARY DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/../bin"
+        RUNTIME DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/../bin"
+        ARCHIVE DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/../bin"
 )
