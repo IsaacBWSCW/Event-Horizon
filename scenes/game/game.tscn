@@ -1,67 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0nmbsuxmb22o"]
-
-[ext_resource type="Texture2D" uid="uid://csnltnn0tmjn8" path="res://assets/ships/ship2(Modified Bersicl Party Schooner)/ship1_RED.png" id="1_sul5r"]
-
-[sub_resource type="GDScript" id="GDScript_sul5r"]
-script/source = "extends RigidBody2D
-
-func _physics_process(delta: float) -> void:
-	angular_velocity = 0
-	if Input.is_action_pressed(\"ship_turn_left\"):
-		rotation += -0.25 * delta * TAU
-	if Input.is_action_pressed(\"ship_turn_right\"):
-		rotation += 0.25 * delta * TAU
-	if Input.is_action_pressed(\"ship_thrust\"):
-		linear_velocity += Vector2.from_angle(rotation - PI/2) * 25 * delta
-
-#func _draw() -> void:
-	#var points = []
-	#var colors = []
-	#var segments: int = 360
-	#
-	#for i in range(segments + 1):
-		#var theta: float = TAU * i / segments
-		#if abs(wrapf(theta - orbit.argument_of_periapsis, -PI, PI)) > orbit.get_angle_max():
-			#continue
-		#var dst: float = orbit.get_radius(theta)
-		#var x: float = dst * cos(theta)
-		#var y: float = dst * sin(theta)
-		#var color = Color.RED
-		#var point := Vector2(x, y)
-		#if orbit_target:
-			#point += orbit_target.global_position
-		#points.append((point - global_position).rotated(-rotation))
-		#colors.append(color)
-		#
-	#draw_polyline_colors(points, colors, 1.0, true)
-"
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ifgtf"]
-radius = 2.0
-
-[sub_resource type="GDScript" id="GDScript_0sr1o"]
-script/source = "extends Camera2D
-
-var zoom_step := 0.1
-var min_zoom := 0.0625
-var max_zoom := 20.0
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			zoom *= 1.0 + zoom_step
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			zoom /= 1.0 + zoom_step
-		zoom.x = clamp(zoom.x, min_zoom, max_zoom)
-		zoom.y = clamp(zoom.y, min_zoom, max_zoom)
-"
-
-[sub_resource type="GDScript" id="GDScript_7h61r"]
-script/source = "extends Node2D
-
-func _ready() -> void:
-	pass
-"
+[gd_scene load_steps=4 format=3 uid="uid://d0nmbsuxmb22o"]
 
 [sub_resource type="Shader" id="Shader_sul5r"]
 code = "shader_type canvas_item;
@@ -192,26 +129,8 @@ size = Vector2(4, 4)
 
 [node name="Game" type="Node2D"]
 
-[node name="PlayerShip" type="RigidBody2D" parent="."]
-position = Vector2(2500, 0)
-script = SubResource("GDScript_sul5r")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerShip"]
-shape = SubResource("CircleShape2D_ifgtf")
-
-[node name="Sprite2D" type="Sprite2D" parent="PlayerShip"]
-texture_filter = 1
-position = Vector2(0, -0.1)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_sul5r")
-
-[node name="Camera2D" type="Camera2D" parent="PlayerShip"]
-ignore_rotation = false
-rotation_smoothing_enabled = true
-script = SubResource("GDScript_0sr1o")
-
 [node name="Bodies" type="Node2D" parent="."]
-script = SubResource("GDScript_7h61r")
+visible = false
 
 [node name="Sun" type="Node2D" parent="Bodies"]
 

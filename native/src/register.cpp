@@ -13,10 +13,11 @@ void initializeEngineModule(const ModuleInitializationLevel level) {
 
 void unInitializeEngineModule(const ModuleInitializationLevel level) {}
 
-extern "C" GDExtensionBool GDE_EXPORT nativeExtensionEntry(const GDExtensionInterfaceGetProcAddress getProcAddress,
-                                                           const GDExtensionClassLibraryPtr library,
-                                                           GDExtensionInitialization* initialization) {
-    const GDExtensionBinding::InitObject initObject(getProcAddress, library, initialization);
+extern "C" GDExtensionBool GDE_EXPORT nativeExtensionEntry(
+    const GDExtensionInterfaceGetProcAddress gdExtensionInterfaceGetProcAddress,
+    const GDExtensionClassLibraryPtr gdExtensionClassLibraryPtr, GDExtensionInitialization* gdExtensionInitialization) {
+    const GDExtensionBinding::InitObject initObject(gdExtensionInterfaceGetProcAddress, gdExtensionClassLibraryPtr,
+                                                    gdExtensionInitialization);
     initObject.register_initializer(initializeEngineModule);
     initObject.register_terminator(unInitializeEngineModule);
     initObject.set_minimum_library_initialization_level(MODULE_INITIALIZATION_LEVEL_SCENE);

@@ -5,5 +5,5 @@ compatibility_minimum = "4.1"
 reloadable = true
 
 [libraries]
-windows.x86_64 = "res://bin/libNativeCode.windows.x86_64.dll"
-linux.x86_64 = "res://bin/libNativeCode.linux.x86_64.so"
+windows.x86_64 = "res://native/bin/libNativeCode.windows.x86_64.dll"
+linux.x86_64 = "res://native/bin/libNativeCode.linux.x86_64.so"

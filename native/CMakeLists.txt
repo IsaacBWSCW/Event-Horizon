@@ -4,7 +4,8 @@ project(NativeCode LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_C_STANDARD 17)
 
-add_subdirectory(godot-cpp godot-cpp/build)
+add_subdirectory(godot-cpp godot-cpp/build EXCLUDE_FROM_ALL)
+add_subdirectory(eigen EXCLUDE_FROM_ALL)
 
 add_library(native SHARED
         src/register.cpp
@@ -12,10 +13,6 @@ add_library(native SHARED
         src/EventHorizonGame.hpp
         src/Event.cpp
         src/Event.hpp
-        src/Object.cpp
-        src/Object.hpp
-        src/GravitationalObject.cpp
-        src/GravitationalObject.hpp
 )
 
 target_include_directories(native PRIVATE
@@ -23,7 +20,7 @@ target_include_directories(native PRIVATE
         godot-cpp/include/godot_cpp
 )
 
-target_link_libraries(native PRIVATE godot-cpp)
+target_link_libraries(native PRIVATE godot-cpp Eigen3::Eigen)
 
 if(WIN32)
     set(PLATFORM_ID "windows")
@@ -41,7 +38,7 @@ set_target_properties(native PROPERTIES
 )
 
 install(TARGETS native
-        LIBRARY DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/../bin"
-        RUNTIME DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/../bin"
-        ARCHIVE DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/../bin"
+        LIBRARY DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/bin"
+        RUNTIME DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/bin"
+        ARCHIVE DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/bin"
 )
