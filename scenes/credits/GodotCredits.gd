@@ -1,12 +1,12 @@
-extends Control
+extends Node2D
 
 const section_time := 2.0
 const line_time := 0.3
-const base_speed := 100
+const base_speed := 100.0
 const speed_up_multiplier := 10.0
 const title_color := Color.BLUE_VIOLET
 
-# var scroll_speed := base_speed
+var scroll_speed := base_speed
 var speed_up := false
 
 @onready var line := $CreditsContainer/Line
@@ -22,40 +22,43 @@ var lines := []
 
 var credits = [
 	[
-		"A game by Reuben, Isaac, and Cy..."
+		"A game by Awesome Game Company"
 	],[
 		"Programming",
-		"Isaac",
-		"Reuben"
+		"Programmer Name",
+		"Programmer Name 2"
 	],[
 		"Art",
-		"Reuben"
+		"Artist Name"
 	],[
 		"Music",
-		"Cy",
-		"Reuben",
+		"Musician Name"
 	],[
 		"Sound Effects",
-		"Cy",
-		"Reuben"
+		"SFX Name"
 	],[
 		"Testers",
-		"Reuben",
-		"Isaac",
-		"Cy"
+		"Name 1",
+		"Name 2",
+		"Name 3"
 	],[
 		"Tools used",
 		"Developed with Godot Engine",
 		"https://godotengine.org/license",
 		"",
-		"Art created with Krita",
-		"https://krita.org/en/"
+		"Art created with My Favourite Art Program",
+		"https://myfavouriteartprogram.com"
+	],[
+		"Special thanks",
+		"My parents",
+		"My friends",
+		"My pet rabbit"
 	]
 ]
 
 
 func _process(delta):
-	var scroll_speed = base_speed * delta
+	scroll_speed = base_speed * delta
 	
 	if section_next:
 		section_timer += delta * speed_up_multiplier if speed_up else delta
@@ -79,8 +82,8 @@ func _process(delta):
 	
 	if lines.size() > 0:
 		for l in lines:
-			l.position.y -= scroll_speed
-			if l.position.y < -l.get_line_height():
+			l.rect_position.y -= scroll_speed
+			if l.rect_position.y < -l.get_line_height():
 				lines.erase(l)
 				l.queue_free()
 	elif started:
@@ -90,8 +93,10 @@ func _process(delta):
 func finish():
 	if not finished:
 		finished = true
-		# This is called when the credits finish and returns to the main menu
-		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+		get_tree().change_scene("res://scenes/main_menu.tscn")
+		# NOTE: This is called when the credits finish
+		# - Hook up your code to return to the relevant scene here, eg...
+		#get_tree().change_scene("res://scenes/MainMenu.tscn")
 
 
 func add_line():
@@ -99,8 +104,7 @@ func add_line():
 	new_line.text = section.pop_front()
 	lines.append(new_line)
 	if curr_line == 0:
-		# new_line.add_color_override("font_color", title_color)
-		new_line.set("theme_override_colors/font_color", title_color)
+		new_line.add_color_override("font_color", title_color)
 	$CreditsContainer.add_child(new_line)
 	
 	if section.size() > 0:
