@@ -1,123 +1,82 @@
-extends Node2D
+extends Control
 
-const section_time := 2.0
-const line_time := 0.3
-const base_speed := 100.0
-const speed_up_multiplier := 10.0
-const title_color := Color.BLUE_VIOLET
+const BASE_SPEED := 60.0
+const SPEED_UP_MULT := 10.0
+const TITLE_COLOR := Color.BLUE_VIOLET
 
-var scroll_speed := base_speed
+@onready var credits_container: VBoxContainer = $CreditsContainer
+@onready var line_template: Label = $CreditsContainer/Line
+
 var speed_up := false
-
-@onready var line := $CreditsContainer/Line
-var started := false
 var finished := false
 
-var section
-var section_next := true
-var section_timer := 0.0
-var line_timer := 0.0
-var curr_line := 0
-var lines := []
-
-var credits = [
-	[
-		"A game by Awesome Game Company"
-	],[
-		"Programming",
-		"Programmer Name",
-		"Programmer Name 2"
-	],[
-		"Art",
-		"Artist Name"
-	],[
-		"Music",
-		"Musician Name"
-	],[
-		"Sound Effects",
-		"SFX Name"
-	],[
-		"Testers",
-		"Name 1",
-		"Name 2",
-		"Name 3"
-	],[
-		"Tools used",
-		"Developed with Godot Engine",
-		"https://godotengine.org/license",
-		"",
-		"Art created with My Favourite Art Program",
-		"https://myfavouriteartprogram.com"
-	],[
-		"Special thanks",
-		"My parents",
-		"My friends",
-		"My pet rabbit"
+var credits: Array = [
+	[ "Esc to end credits"],
+	[ "Down arrow to go faster"],
+	[ "A game by Reuben, Isaac and Cy" ],
+	[ "Primary Programming", "Isaac"],
+	[ "Secondary Programming", "Reuben" ],
+	[ "Art", "Reuben" ],
+	[ "Music", "Cy(?)" ],
+	[ "Sound Effects", "Cy(?)" ],
+	[ "Testers", "Ruby", "Isaac", "You ;)" ],
+	[ "Tools used", "Developed with Godot Engine", "https://godotengine.org/license", "Art created with Krita", "https://krita.org/en/" ],
+	[ "Special thanks", "My teacher", "My parents", "My friends", "My pet rabbit (/j i dont have a rabbit)" ],
+	[ "Exremely special thanks...", "You, for playing!"],
+	[ "BYE!"],
 	]
-]
 
 
-func _process(delta):
-	scroll_speed = base_speed * delta
-	
-	if section_next:
-		section_timer += delta * speed_up_multiplier if speed_up else delta
-		if section_timer >= section_time:
-			section_timer -= section_time
-			
-			if credits.size() > 0:
-				started = true
-				section = credits.pop_front()
-				curr_line = 0
-				add_line()
-	
-	else:
-		line_timer += delta * speed_up_multiplier if speed_up else delta
-		if line_timer >= line_time:
-			line_timer -= line_time
-			add_line()
-	
-	if speed_up:
-		scroll_speed *= speed_up_multiplier
-	
-	if lines.size() > 0:
-		for l in lines:
-			l.rect_position.y -= scroll_speed
-			if l.rect_position.y < -l.get_line_height():
-				lines.erase(l)
-				l.queue_free()
-	elif started:
-		finish()
+func _ready() -> void:
+	line_template.visible = false
+
+	# Spawn every credit line up front
+	for section_arr in credits:
+		for i in range(section_arr.size()):
+			var new_line := line_template.duplicate() as Label
+			new_line.visible = true
+			new_line.text = section_arr[i]
+			if i == 0:
+				new_line.add_theme_color_override("font_color", TITLE_COLOR)
+			credits_container.add_child(new_line)
+
+	await get_tree().process_frame
+	credits_container.reset_size() # ensures layout updates
+
+	var viewport_h := get_viewport_rect().size.y
+	credits_container.position.y = viewport_h
+
+	# calculate total height manually
+	var total_height := 0.0
+	for child in credits_container.get_children():
+		if child is Label:
+			total_height += child.size.y + credits_container.get_theme_constant("separation")
+	credits_container.custom_minimum_size.y = total_height
 
 
-func finish():
-	if not finished:
-		finished = true
-		get_tree().change_scene("res://scenes/main_menu.tscn")
-		# NOTE: This is called when the credits finish
-		# - Hook up your code to return to the relevant scene here, eg...
-		#get_tree().change_scene("res://scenes/MainMenu.tscn")
+func _process(delta: float) -> void:
+	var multiplier := SPEED_UP_MULT if speed_up else 1.0
+	var scroll_amount := BASE_SPEED * multiplier * delta
+	credits_container.position.y -= scroll_amount
+
+	# Recalculate bounds using actual height
+	var container_bottom := credits_container.position.y + credits_container.custom_minimum_size.y
+
+	if not finished and container_bottom < 0:
+		_finish()
 
 
-func add_line():
-	var new_line = line.duplicate()
-	new_line.text = section.pop_front()
-	lines.append(new_line)
-	if curr_line == 0:
-		new_line.add_color_override("font_color", title_color)
-	$CreditsContainer.add_child(new_line)
-	
-	if section.size() > 0:
-		curr_line += 1
-		section_next = false
-	else:
-		section_next = true
-
-
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		finish()
-	if event.is_action_pressed("ui_down") and !event.is_echo():
+		_finish()
+	if event.is_action_pressed("ui_down") and not event.is_echo():
 		speed_up = true
-	if event.is_action_released("ui_down") and !event.is_echo():
+	if event.is_action_released("ui_down") and not event.is_echo():
 		speed_up = false
+
+
+func _finish() -> void:
+	if finished:
+		return
+	finished = true
+	get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")

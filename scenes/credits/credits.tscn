@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlqah4quj30xb"]
+
+[ext_resource type="Script" uid="uid://fcnjrb1oo7f8" path="res://scenes/credits/GodotCredits.gd" id="1_c1t8d"]
+[ext_resource type="FontFile" uid="uid://c4x32k77ycecx" path="res://assets/UI & UX/text/Xirod.otf" id="1_nm7lk"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_c1t8d")
+
+[node name="CreditsContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Line" type="Label" parent="CreditsContainer"]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nm7lk")
+text = "Credits Line"
