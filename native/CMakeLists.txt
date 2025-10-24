@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_C_STANDARD 17)
 
 add_subdirectory(godot-cpp godot-cpp/build EXCLUDE_FROM_ALL)
-add_subdirectory(eigen EXCLUDE_FROM_ALL)
+add_subdirectory(glm EXCLUDE_FROM_ALL)
 
 add_library(native SHARED
         src/register.cpp
@@ -20,7 +20,7 @@ target_include_directories(native PRIVATE
         godot-cpp/include/godot_cpp
 )
 
-target_link_libraries(native PRIVATE godot-cpp Eigen3::Eigen)
+target_link_libraries(native PRIVATE godot::cpp glm::glm)
 
 if(WIN32)
     set(PLATFORM_ID "windows")
