@@ -13,6 +13,8 @@ add_library(native SHARED
         src/EventHorizonGame.hpp
         src/Event.cpp
         src/Event.hpp
+        src/EventHorizonShipController.cpp
+        src/EventHorizonShipController.hpp
 )
 
 target_include_directories(native PRIVATE

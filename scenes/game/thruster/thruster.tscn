@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxbnwr708yrwk"]
+
+[ext_resource type="Shader" uid="uid://dw05w577svqhr" path="res://scenes/game/thruster/thruster.gdshader" id="1_0xl2y"]
+[ext_resource type="Script" uid="uid://c8ttlcq8ydpgd" path="res://scenes/game/thruster/thruster.gd" id="1_j7hjc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j7hjc"]
+shader = ExtResource("1_0xl2y")
+shader_parameter/exhaustTemperature = 3000.0
+shader_parameter/exhaustTemperatureRandom = 100.0
+shader_parameter/exhaustTemperatureDecayRate = 2.0
+
+[sub_resource type="Gradient" id="Gradient_ewvq0"]
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qtymo"]
+gradient = SubResource("Gradient_ewvq0")
+
+[sub_resource type="Curve" id="Curve_cykmt"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, -3.0769231, 0, 1, Vector2(0.65, 0), -3.0769231, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8riwd"]
+curve = SubResource("Curve_cykmt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_arws5"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.0
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+scale_curve = SubResource("CurveTexture_8riwd")
+color_ramp = SubResource("GradientTexture1D_qtymo")
+hue_variation_min = -2.2351742e-08
+hue_variation_max = -2.2351742e-08
+
+[node name="Thruster" type="Node2D"]
+script = ExtResource("1_j7hjc")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_j7hjc")
+amount = 1000
+randomness = 1.0
+interpolate = false
+process_material = SubResource("ParticleProcessMaterial_arws5")

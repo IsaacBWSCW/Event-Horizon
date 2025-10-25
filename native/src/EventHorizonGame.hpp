@@ -1,11 +1,12 @@
 #pragma once
 
 #include <godot_cpp/classes/node2d.hpp>
-#include <godot_cpp/classes/ref.hpp>
 
-namespace godot {
-    class EventHorizonGame final : public Node2D {
-        GDCLASS(EventHorizonGame, Node2D);
+#include "EventHorizonShipController.hpp"
+
+namespace eventHorizon {
+    class EventHorizonGame final : public godot::Node2D {
+        GDCLASS(EventHorizonGame, godot::Node2D);
 
     protected:
         static void _bind_methods();
@@ -14,6 +15,5 @@ namespace godot {
         void _ready() override;
 
     private:
-        Node2D* gameScene;
     };
 }

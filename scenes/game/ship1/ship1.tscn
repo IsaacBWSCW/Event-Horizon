@@ -1,0 +1,155 @@
+[gd_scene load_steps=22 format=3 uid="uid://l35wg4kwqren"]
+
+[ext_resource type="Texture2D" uid="uid://dor57nre2pi8" path="res://assets/ships/ship1(Clefdroon Peasant-Class Dropship)/ship4_RED.png" id="1_j1w6f"]
+[ext_resource type="Shader" uid="uid://dw05w577svqhr" path="res://scenes/game/thruster/thruster.gdshader" id="3_417ji"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_vjhut"]
+viewport_path = NodePath("Thrusters/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6t60o"]
+shader = ExtResource("3_417ji")
+shader_parameter/exhaustTemperature = 4500.0
+shader_parameter/exhaustTemperatureRandom = 100.0
+shader_parameter/exhaustTemperatureDecayRate = 3.0000000447036
+
+[sub_resource type="Gradient" id="Gradient_y6wkv"]
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_417ji"]
+gradient = SubResource("Gradient_y6wkv")
+
+[sub_resource type="Curve" id="Curve_mmeyi"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, -3.0769231, 0, 1, Vector2(0.65, 0), -3.0769231, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7fqt0"]
+curve = SubResource("Curve_mmeyi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_il8te"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.0
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+scale_curve = SubResource("CurveTexture_7fqt0")
+color_ramp = SubResource("GradientTexture1D_417ji")
+hue_variation_min = -2.2351742e-08
+hue_variation_max = -2.2351742e-08
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y6wkv"]
+shader = ExtResource("3_417ji")
+shader_parameter/exhaustTemperature = 3500.0
+shader_parameter/exhaustTemperatureRandom = 100.0
+shader_parameter/exhaustTemperatureDecayRate = 2.0
+
+[sub_resource type="Gradient" id="Gradient_417ji"]
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mmeyi"]
+gradient = SubResource("Gradient_417ji")
+
+[sub_resource type="Curve" id="Curve_7fqt0"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, -3.0769231, 0, 1, Vector2(0.65, 0), -3.0769231, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_il8te"]
+curve = SubResource("Curve_7fqt0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jqoyn"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 2.0
+direction = Vector3(0, 1, 0)
+spread = 5.0
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+scale_curve = SubResource("CurveTexture_il8te")
+color_ramp = SubResource("GradientTexture1D_mmeyi")
+hue_variation_min = -2.2351742e-08
+hue_variation_max = -2.2351742e-08
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_417ji"]
+shader = ExtResource("3_417ji")
+shader_parameter/exhaustTemperature = 3500.0
+shader_parameter/exhaustTemperatureRandom = 100.0
+shader_parameter/exhaustTemperatureDecayRate = 2.0
+
+[sub_resource type="Gradient" id="Gradient_jqoyn"]
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1qsf3"]
+gradient = SubResource("Gradient_jqoyn")
+
+[sub_resource type="Curve" id="Curve_svlpf"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, -3.0769231, 0, 1, Vector2(0.65, 0), -3.0769231, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5qboc"]
+curve = SubResource("Curve_svlpf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a3efu"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 2.0
+direction = Vector3(0, 1, 0)
+spread = 5.0
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+scale_curve = SubResource("CurveTexture_5qboc")
+color_ramp = SubResource("GradientTexture1D_1qsf3")
+hue_variation_min = -2.2351742e-08
+hue_variation_max = -2.2351742e-08
+
+[node name="Ship1" type="Node2D"]
+
+[node name="Thrusters" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 64)
+texture = SubResource("ViewportTexture_vjhut")
+
+[node name="SubViewport" type="SubViewport" parent="Thrusters"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="Thrusters" type="Node2D" parent="Thrusters/SubViewport"]
+position = Vector2(64, 0)
+
+[node name="MainThruster" type="GPUParticles2D" parent="Thrusters/SubViewport/Thrusters"]
+material = SubResource("ShaderMaterial_6t60o")
+position = Vector2(0, 18)
+amount = 1000
+randomness = 1.0
+interpolate = false
+process_material = SubResource("ParticleProcessMaterial_il8te")
+
+[node name="LeftThruster" type="GPUParticles2D" parent="Thrusters/SubViewport/Thrusters"]
+material = SubResource("ShaderMaterial_y6wkv")
+position = Vector2(-12, 11)
+rotation = 0.2617994
+scale = Vector2(0.99999994, 0.99999994)
+amount = 500
+lifetime = 0.5
+randomness = 1.0
+interpolate = false
+process_material = SubResource("ParticleProcessMaterial_jqoyn")
+
+[node name="RightThruster" type="GPUParticles2D" parent="Thrusters/SubViewport/Thrusters"]
+material = SubResource("ShaderMaterial_417ji")
+position = Vector2(12, 11)
+rotation = -0.2617994
+scale = Vector2(0.99999994, 0.99999994)
+amount = 500
+lifetime = 0.5
+randomness = 1.0
+interpolate = false
+process_material = SubResource("ParticleProcessMaterial_a3efu")
+
+[node name="Ship" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_j1w6f")

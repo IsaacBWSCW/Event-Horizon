@@ -133,8 +133,10 @@ size = Vector2(4, 4)
 visible = false
 
 [node name="Sun" type="Node2D" parent="Bodies"]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Bodies/Sun"]
+visible = false
 material = SubResource("ShaderMaterial_7h61r")
 scale = Vector2(1000, 1000)
 texture = SubResource("PlaceholderTexture2D_bdhmt")
