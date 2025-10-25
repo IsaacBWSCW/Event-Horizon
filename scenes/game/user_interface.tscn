@@ -1,0 +1,97 @@
+[gd_scene load_steps=7 format=3 uid="uid://ceqm1s3b6sn7f"]
+
+[ext_resource type="Texture2D" uid="uid://dsrmhc68ffwkj" path="res://assets/UI & UX/resources/ammo.png" id="1_qsb6c"]
+[ext_resource type="Texture2D" uid="uid://bmboeju7jomw1" path="res://assets/UI & UX/resources/boost fuel.png" id="2_ltc7r"]
+[ext_resource type="Texture2D" uid="uid://rxdlpmxl8dcw" path="res://assets/UI & UX/ammo background.png" id="2_wu7qv"]
+[ext_resource type="Texture2D" uid="uid://dni0584tstx0k" path="res://assets/UI & UX/ammo lines.png" id="3_b2ldg"]
+[ext_resource type="Texture2D" uid="uid://d4bm8pd8obaaa" path="res://assets/UI & UX/resources/basic resources - draft.png" id="3_nw6x7"]
+[ext_resource type="Texture2D" uid="uid://b1v2lgln1f08k" path="res://assets/UI & UX/1 ammo.png" id="4_lb15v"]
+
+[node name="Control" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="resources" type="PanelContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(0, 10)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -117.0
+offset_right = 300.0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/resources"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/resources/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="ammo icon" type="TextureRect" parent="CanvasLayer/resources/MarginContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_qsb6c")
+stretch_mode = 5
+
+[node name="ammo count" type="TextureProgressBar" parent="CanvasLayer/resources/MarginContainer/GridContainer"]
+custom_minimum_size = Vector2(250, 20)
+layout_mode = 2
+size_flags_vertical = 4
+nine_patch_stretch = true
+stretch_margin_left = 5
+stretch_margin_top = 5
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+texture_under = ExtResource("2_wu7qv")
+texture_over = ExtResource("3_b2ldg")
+texture_progress = ExtResource("4_lb15v")
+
+[node name="boost icon" type="TextureRect" parent="CanvasLayer/resources/MarginContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_ltc7r")
+stretch_mode = 5
+
+[node name="boost fuel" type="TextureProgressBar" parent="CanvasLayer/resources/MarginContainer/GridContainer"]
+custom_minimum_size = Vector2(250, 20)
+layout_mode = 2
+size_flags_vertical = 4
+nine_patch_stretch = true
+stretch_margin_left = 5
+stretch_margin_top = 5
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+texture_under = ExtResource("2_wu7qv")
+texture_over = ExtResource("3_b2ldg")
+texture_progress = ExtResource("4_lb15v")
+
+[node name="basic resources icon" type="TextureRect" parent="CanvasLayer/resources/MarginContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("3_nw6x7")
+stretch_mode = 5
+
+[node name="basic resources" type="TextureProgressBar" parent="CanvasLayer/resources/MarginContainer/GridContainer"]
+custom_minimum_size = Vector2(250, 20)
+layout_mode = 2
+size_flags_vertical = 4
+nine_patch_stretch = true
+stretch_margin_left = 5
+stretch_margin_top = 5
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+texture_under = ExtResource("2_wu7qv")
+texture_over = ExtResource("3_b2ldg")
+texture_progress = ExtResource("4_lb15v")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
