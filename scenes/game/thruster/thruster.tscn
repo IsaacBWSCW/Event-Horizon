@@ -5,9 +5,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j7hjc"]
 shader = ExtResource("1_0xl2y")
-shader_parameter/exhaustTemperature = 3000.0
+shader_parameter/exhaustTemperature = 3500.0
 shader_parameter/exhaustTemperatureRandom = 100.0
-shader_parameter/exhaustTemperatureDecayRate = 2.0
+shader_parameter/exhaustTemperatureDecayRate = 2.0000000298024
 
 [sub_resource type="Gradient" id="Gradient_ewvq0"]
 colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)

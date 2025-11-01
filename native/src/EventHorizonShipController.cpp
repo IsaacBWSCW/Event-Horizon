@@ -11,7 +11,13 @@ void EventHorizonShipController::_bind_methods() {
 }
 
 void EventHorizonShipController::_ready() {}
+bool EventHorizonShipController::get_thrust_active() const { return thrustActive; }
 
-bool EventHorizonShipController::get_thrust_active() const {
-    return true;
+void EventHorizonShipController::update(const double deltaTime) {
+    const glm::dvec2 velocity = truePosition - trueLastPosition;
+    trueLastPosition = truePosition;
+    truePosition += velocity + acceleration * deltaTime * deltaTime;
+    acceleration = glm::dvec2{0};
 }
+void EventHorizonShipController::accelerate(const glm::dvec2 accel) { acceleration += accel; }
+

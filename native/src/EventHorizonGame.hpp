@@ -13,7 +13,9 @@ namespace eventHorizon {
 
     public:
         void _ready() override;
+        void _process(double p_delta) override;
 
     private:
+        EventHorizonShipController* shipController = nullptr;
     };
 }
